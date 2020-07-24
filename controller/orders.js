@@ -51,7 +51,7 @@ module.exports = {
 
       const data = {
         userId: _id,
-        usersCod: cod,
+        userCod: cod,
         client,
         products: await Promise.all(products.map((objProduct) => connector
           .get('products', objProduct.productId)
