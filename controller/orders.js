@@ -43,13 +43,15 @@ module.exports = {
 
   createOrder: async (req, resp, next) => {
     const { products, client } = req.body;
+    const { _id, cod } = req.user;
 
     try {
       if (products.length === 0) return next(400);
       // si no se indica id del usuario autenticado.
 
       const data = {
-        userId: req.user._id,
+        userId: _id,
+        usersCod: cod,
         client,
         products: await Promise.all(products.map((objProduct) => connector
           .get('products', objProduct.productId)
