@@ -186,7 +186,7 @@
     
 - [ ] [req.body](https://expressjs.com/es/4x/api.html#req.body)
 
-    Contiene pares de datos clave-valor enviados en el cuerpo de la solicitud. De forma predeterminada, está undefinedy se completa cuando utiliza middleware de análisis de cuerpo como express.json()o express.urlencoded().
+    Contiene pares de datos clave-valor enviados en el cuerpo de la solicitud. Por defecto es undefined y se completa cuando utiliza middleware de análisis de cuerpo como express.json()o express.urlencoded().
 
     [body](https://developer.mozilla.org/es/docs/Web/HTTP/Messages), la última parte del mensaje de respuesta el es 'cuerpo'. No todas las respuestas tienen uno, respuestas con un código de estado como 201 o 204 normalmente prescinden de él.
 
