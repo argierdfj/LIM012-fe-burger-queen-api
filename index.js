@@ -6,12 +6,12 @@ const errorHandler = require('./middleware/error');
 const routes = require('./routes');
 const pkg = require('./package.json');
 
-const { port, jwtSecret } = config;
+const { port, dbUrl, jwtSecret } = config;
 const app = express();
 
 app.use(cors());
 
-// TODO: Conección a la BD en mogodb
+// // TODO: Conección a la BD en mogodb
 
 app.set('config', config);
 app.set('pkg', pkg);
