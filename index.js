@@ -9,14 +9,13 @@ const pkg = require('./package.json');
 const { port, dbUrl, jwtSecret } = config;
 const app = express();
 
-app.use(cors());
-
 // // TODO: Conección a la BD en mogodb
 
 app.set('config', config);
 app.set('pkg', pkg);
 
 // parse application/x-www-form-urlencoded
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(authMiddleware(jwtSecret));
