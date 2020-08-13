@@ -1,12 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const config = require('./config');
 const authMiddleware = require('./middleware/auth');
 const errorHandler = require('./middleware/error');
 const routes = require('./routes');
 const pkg = require('./package.json');
 
-const { port, dbUrl, jwtSecret } = config;
+const { port, jwtSecret } = config;
 const app = express();
+
+app.use(cors());
 
 // TODO: Conección a la BD en mogodb
 
