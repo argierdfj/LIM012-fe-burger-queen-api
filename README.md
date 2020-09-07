@@ -36,7 +36,7 @@ Se empleó **Express** como framework, que se caracteriza principalmente por ser
 
 Para la persistencia de datos se utilizó **MongoDB Atlas** y se creó la conexión con el cliente siguiendo el patrón de diseño singleton que permite crear una instancia única de conexión con la BBDD, de manera que al momento de llamar a los métodos de la librería mongodb no se sature con múltiples conexiones y se genere algún.
 
-- *REST*
-- *JWT*
-- *Postman*
-- *Heroku*
+- **REST**
+- **JWT**
+- **Postman**
+- **Heroku**
