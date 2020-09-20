@@ -20,8 +20,9 @@ module.exports = {
       const links = linksPagination(url, pageCurrent, limitCurrent, (await connector.getAll('products')).length);
       resp.set('link', links);
 
-      const allUsers = await connector.pagination('products', parseInt(pageCurrent, 0), parseInt(limitCurrent, 0));
-      resp.send(allUsers);
+      const allProducts = await connector.pagination('products', parseInt(pageCurrent, 0), parseInt(limitCurrent, 0));
+      const activeProduct = allProducts.filter((ele) => ele.statusElem.isActive);
+      resp.send(activeProduct);
     } catch (error) {
       next(403);
     }
@@ -78,8 +79,9 @@ module.exports = {
       delete prod._id;
 
       if (Object.keys(data).length === 0
-      || JSON.stringify(data) === JSON.stringify(prod)
-      || (typeof (data.price) !== 'number')) return next(400);
+      || JSON.stringify(data) === JSON.stringify(prod)) return next(400);
+
+      if (('price' in data) && (typeof (data.price) !== 'number')) return next(400);
 
       const productId = await connector.update('products', paramId, data);
       const product = await connector.get('products', productId);
