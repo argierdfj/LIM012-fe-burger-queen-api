@@ -10,19 +10,20 @@ const connector = new MongoLib() || new MongoLibMock();
 
 module.exports = {
   getProducts: async (req, resp, next) => {
-    const { page, limit } = req.query;
+    const { query } = req;
+
+    const internalQuery = {
+      statusElem: { isActive: true },
+    };
 
     try {
-      const pageCurrent = parseInt(page, 10) || 1;
-      const limitCurrent = parseInt(limit, 10) || 10;
-      const url = `${req.protocol}://${req.get('host')}${req.path}`;
+      const allProducts = query
+        ? await connector.pagination('products', parseInt(query.page || 1, 0), parseInt(query.limit || 10, 0), internalQuery)
+        : await connector.getAll('products', internalQuery);
 
-      const links = linksPagination(url, pageCurrent, limitCurrent, (await connector.getAll('products')).length);
+      const links = linksPagination(req.get('Referer'), query.page, query.limit, (await connector.getAll('products')).length);
       resp.set('link', links);
-
-      const allProducts = await connector.pagination('products', parseInt(pageCurrent, 0), parseInt(limitCurrent, 0));
-      const activeProduct = allProducts.filter((ele) => ele.statusElem.isActive);
-      resp.send(activeProduct);
+      resp.send(allProducts);
     } catch (error) {
       next(403);
     }
